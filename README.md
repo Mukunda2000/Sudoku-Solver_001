@@ -8,12 +8,12 @@ Welcome to the Sudoku Solver, a web application designed to solve Sudoku puzzles
 <br> 
 
 ## 🌐 Live Website Demo 
- <!-- 🔗 https://ayushichoudhary-19.github.io/SudokuSolver/ -->
+ 🔗 http://mukunda2000.me/Sudoku-Solver_001/
 
 
-<!-- <p align="center">
-  <img src="https://github.com/ayushichoudhary-19/SudokuSolver/assets/73214455/1686de45-c5c3-4f53-ad1d-6a57a86111db" alt="Image" width="600" height="auto">
-</p> -->
+<p align="center">
+  <img src="assest/image.png" alt="Image" width="600" height="auto">
+</p>
 
 ## 🧩 Sudoku Puzzle
 
@@ -81,7 +81,7 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Note:** You are welcome to clone and customize this Sudoku Solver for your own projects. Explore the code and adapt it to your needs, or contribute to its development on [GitHub](https://github.com/Mukunda2000/Sudoku-Solver_001).
+**Note:** You are welcome to clone and customize this Sudoku Solver for your own projects. Explore the code and adapt it to your needs, or contribute to its development on [GitHub](https://github.com/ayushichoudhary-19/SudokuSolver).
 
 
 
