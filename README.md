@@ -81,7 +81,7 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Note:** You are welcome to clone and customize this Sudoku Solver for your own projects. Explore the code and adapt it to your needs, or contribute to its development on [GitHub](https://github.com/ayushichoudhary-19/SudokuSolver).
+**Note:** You are welcome to clone and customize this Sudoku Solver for your own projects. Explore the code and adapt it to your needs, or contribute to its development on [GitHub](https://github.com/Mukunda2000/Sudoku-Solver_001).
 
 
 
