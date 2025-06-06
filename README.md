@@ -12,7 +12,7 @@ Welcome to the Sudoku Solver, a web application designed to solve Sudoku puzzles
 
 
 <p align="center">
-  <img src="assest/image.png" alt="Image" width="600" height="auto">
+  <img src="image.png" alt="Image" width="600" height="auto">
 </p>
 
 ## 🧩 Sudoku Puzzle
