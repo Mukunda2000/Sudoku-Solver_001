@@ -1,171 +1,183 @@
-"use strict";
+const submit=document.getElementById('submit');
+const invalidInputMsg = document.getElementById('invalid-input-msg'); 
 
-var EASY_PUZZLE = "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--";
-var MEDIUM_PUZZLE = "-3-5--8-45-42---1---8--9---79-8-61-3-----54---5------78-----7-2---7-46--61-3--5--";
-var HARD_PUZZLE = "8----------36------7--9-2---5---7-------457-----1---3---1----68--85---1--9----4--";
+submit.addEventListener('click',answer);
 
-// Set this variable to true to publicly expose otherwise private functions inside of SudokuSolver
-var TESTABLE = true;
+function answer(){
+    var A= new Array();
+    for (let i=0;i<81;i++){
+                    //taking the input values in a 1D array
+            A[i]=Number(document.getElementsByTagName('input')[i].value);
+	    const inputValue = Number(document.getElementsByTagName('input')[i].value);
+      
 
-var SudokuSolver = function (testable) {
-  var solver;
-
-  // PUBLIC FUNCTIONS
-  function solve(boardString) {
-    var boardArray = boardString.split("");
-    if (boardIsInvalid(boardArray)) {
-      return false;
+if (!isNaN(inputValue) && (inputValue === 0 || (inputValue >= 1 && inputValue <= 9))) {
+    A[i] = inputValue;
+} else {
+    A[i] = 0;
+    invalidInputMsg.style.display = 'block';
+    return;
+}
+	    // If all inputs are valid, hide the invalid input message
+    invalidInputMsg.style.display = 'none';	    
+	    
     }
-    return recursiveSolve(boardString);
-  }
-
-  function solveAndPrint(boardString) {
-    var solvedBoard = solve(boardString);
-    console.log(toString(solvedBoard.split("")));
-    return solvedBoard;
-  }
-
-  // PRIVATE FUNCTIONS
-  function recursiveSolve(boardString) {
-    var boardArray = boardString.split("");
-    if (boardIsSolved(boardArray)) {
-      return boardArray.join("");
-    }
-    var cellPossibilities = getNextCellAndPossibilities(boardArray);
-    var nextUnsolvedCellIndex = cellPossibilities.index;
-    var possibilities = cellPossibilities.choices;
-    for (var i = 0; i < possibilities.length; i++) {
-      boardArray[nextUnsolvedCellIndex] = possibilities[i];
-      var solvedBoard = recursiveSolve(boardArray.join(""));
-      if (solvedBoard) {
-        return solvedBoard;
-      }
-    }
-    return false;
-  }
-
-  function boardIsInvalid(boardArray) {
-    return !boardIsValid(boardArray);
-  }
-
-  function boardIsValid(boardArray) {
-    return allRowsValid(boardArray) && allColumnsValid(boardArray) && allBoxesValid(boardArray);
-  }
-
-  function boardIsSolved(boardArray) {
-    for (var i = 0; i < boardArray.length; i++) {
-      if (boardArray[i] === "-") {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  function getNextCellAndPossibilities(boardArray) {
-    for (var i = 0; i < boardArray.length; i++) {
-      if (boardArray[i] === "-") {
-        var existingValues = getAllIntersections(boardArray, i);
-        var choices = ["1", "2", "3", "4", "5", "6", "7", "8", "9"].filter(function (num) {
-          return existingValues.indexOf(num) < 0;
-        });
-        return { index: i, choices: choices };
-      }
-    }
-  }
-
-  function getAllIntersections(boardArray, i) {
-    return getRow(boardArray, i).concat(getColumn(boardArray, i)).concat(getBox(boardArray, i));
-  }
-
-  function allRowsValid(boardArray) {
-    return [0, 9, 18, 27, 36, 45, 54, 63, 72].map(function (i) {
-      return getRow(boardArray, i);
-    }).reduce(function (validity, row) {
-      return collectionIsValid(row) && validity;
-    }, true);
-  }
-
-  function getRow(boardArray, i) {
-    var startingEl = Math.floor(i / 9) * 9;
-    return boardArray.slice(startingEl, startingEl + 9);
-  }
-
-  function allColumnsValid(boardArray) {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
-      return getColumn(boardArray, i);
-    }).reduce(function (validity, row) {
-      return collectionIsValid(row) && validity;
-    }, true);
-  }
-
-  function getColumn(boardArray, i) {
-    var startingEl = Math.floor(i % 9);
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (num) {
-      return boardArray[startingEl + num * 9];
-    });
-  }
-
-  function allBoxesValid(boardArray) {
-    return [0, 3, 6, 27, 30, 33, 54, 57, 60].map(function (i) {
-      return getBox(boardArray, i);
-    }).reduce(function (validity, row) {
-      return collectionIsValid(row) && validity;
-    }, true);
-  }
-
-  function getBox(boardArray, i) {
-    var boxCol = Math.floor(i / 3) % 3;
-    var boxRow = Math.floor(i / 27);
-    var startingIndex = boxCol * 3 + boxRow * 27;
-    return [0, 1, 2, 9, 10, 11, 18, 19, 20].map(function (num) {
-      return boardArray[startingIndex + num];
-    });
-  }
-
-  function collectionIsValid(collection) {
-    var numCounts = {};
-    for(var i = 0; i < collection.length; i++) {
-      if (collection[i] != "-") {
-        if (numCounts[collection[i]] === undefined) {
-          numCounts[collection[i]] = 1;
-        } else {
-          return false;
+    //Giving output a different color        
+    for(let i=0;i<81;i++){
+        if(A[i]==0){
+            document.getElementsByTagName('input')[i].style.color='rgb(89, 89, 231)';
         }
-      }
     }
+        //converting 1D input array to a 2D array/board
+        var board=[];
+        while(A.length>0){
+            board.push(A.splice(0,9));
+         }
+            
+    let N = board.length;
+
+    let inputValid= checkInput(board);
+    
+    if(inputValid){
+  
+    if (solveSudoku(board, N))
+    {
+        
+        print(board);
+    }
+    else
+    {
+        alert('No Solution');
+    }
+    
+    }
+}
+
+function isZero(board){
+    let sum=0;
+    for(let i=0;i<9;i++){
+        for(let j=0;j<9;j++){
+        sum=sum+board[i][j];
+    }
+}
+    return sum==0;
+}
+
+function checkInput(board){
+    //check if there is no input
+    if(isZero(board)){
+        document.getElementById('alert-msg').style.display='block';
+        return false
+    }
+    document.getElementById('alert-msg').style.display='none';
     return true;
-  }
+}
 
-  function toString(boardArray) {
-    return [0, 9, 18, 27, 36, 45, 54, 63, 72].map(function (i) {
-      return getRow(boardArray, i).join(" ");
-    }).join("\n");
-  }
+function isSafe(board, row, col, value)
+{
+	
+	//check if row has the value already
+	for(let j = 0; j < board.length; j++)
+	{	
+		if (board[row][j] == value)
+		{
+			return false;
+		}
+	}
 
-  if (testable) {
-    // These methods will be exposed publicly when testing is on.
-    solver = { 
-      solve: solve,
-      solveAndPrint: solveAndPrint,
-      recursiveSolve: recursiveSolve,
-      boardIsInvalid: boardIsInvalid,
-      boardIsValid: boardIsValid,
-      boardIsSolved: boardIsSolved,
-      getNextCellAndPossibilities: getNextCellAndPossibilities,
-      getAllIntersections: getAllIntersections,
-      allRowsValid: allRowsValid,
-      getRow: getRow,
-      allColumnsValid: allColumnsValid,
-      getColumn: getColumn,
-      allBoxesValid: allBoxesValid,
-      getBox: getBox,
-      collectionIsValid: collectionIsValid,
-      toString: toString };
-  } else {
-    // These will be the only public methods when testing is off.
-    solver = { solve: solve,
-      solveAndPrint: solveAndPrint };
-  }
+	//check if column has the value already
+	for(let i = 0; i < board.length; i++)
+	{	
+		if (board[i][col] == value)
+		{
+			return false;
+		}
+	}
 
-  return solver;
-}(TESTABLE);
+	//check if the 3*3 matrix has the value already
+	let sqrt = Math.floor(Math.sqrt(board.length));
+	let boxRowStart = row - row % sqrt;
+	let boxColStart = col - col % sqrt;
+
+	for(let i= boxRowStart;i<boxRowStart+sqrt;i++)
+	{
+		for(let j = boxColStart;j< boxColStart+sqrt;j++)
+		{
+			if (board[i][j] == value)
+			{
+				return false;
+			}
+		}
+	}
+
+	// If none of above conditions satisfied, it's safe
+	return true;
+}
+
+function solveSudoku(board, n)
+{
+	let row = -1;
+	let col = -1;
+	let isEmpty = true;
+	for(let i = 0; i < n; i++)
+	{
+		for(let j = 0; j < n; j++)
+		{
+			if (board[i][j] == 0)
+			{
+				row = i;
+				col = j;
+
+				// We still have some remaining
+				// missing values in Sudoku
+				isEmpty = false;
+				break;
+			}
+		}
+		if (!isEmpty)
+		{
+			break;
+		}
+	}
+
+	// No empty space left
+	if (isEmpty)
+	{
+		return true;
+	}
+
+	// Else for each-row backtrack
+	for(let num = 1; num <= n; num++)
+	{
+		if (isSafe(board, row, col, num))
+		{
+			board[row][col] = num;
+			if (solveSudoku(board, n))
+			{
+				return true;
+			}
+			else
+			{
+	
+				board[row][col] = 0;
+			}
+		}
+	}
+	return false;
+}
+
+function print(board){
+    //changing 2D back to 1D
+    const output = new Array();
+    for(let i=0;i<9;i++){
+        for(let j=0;j<9;j++){
+            output.push(board[i][j]);
+        }
+    }
+   
+
+    for(let k=0;k<81;k++){
+    document.getElementsByTagName('input')[k].value=output[k];
+    }
+}
+

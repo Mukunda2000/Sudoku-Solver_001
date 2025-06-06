@@ -1,114 +1,116 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title></title>
-  <script type="text/javascript" src="sudoku.js"></script>
-  <script type="text/javascript" src="analytics.js"></script>
-  <style type="text/css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Solver</title>
 
-    body { font-family: Calibri, sans-serif; }
-    #container { text-align: center }
-    table { border-collapse: collapse; font-size: 2em; margin: 0 auto; }
-    colgroup, tbody { border: solid medium; }
-    td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
-    button { margin-top: 15px; font-size: 1.5em; }
-    
-    padd{padding-bottom: 100px;}
-    
-  </style>
+    <link href="sudoku.css" rel="stylesheet" ></link>
 </head>
+
 <body>
-  
-    
-  <div id="container">
-    <!-- <img src="gfg.png" style = "height:100px ; width: 400px; align ="left" "  > -->
-
-    <h1 class = "padd">Sudoku Solver</h1>
-
-    <table id="sudoku-board">
+    <h1 align="center">9 x 9 Sudoku Solver</h1>
+    <p id="alert-msg">Input Some Values!</p>
+    <p id="invalid-input-msg" style="color: red; display: none;">Invalid input! Please enter a number between 1 and 9.</p>
+    <div id="content-div">
+    <table id="grid">
+        <tbody>
+        <tr><td><input type="number" class="top-row col-start" id="00"></td>
+            <td><input type="number" class="top-row"id="01"></td>
+            <td><input type="number" class="top-row col-end"id="02"></td>
+            <td><input type="number" class="top-row col-start"id="03"></td>
+            <td><input type="number" class="top-row"id="04"></td>
+            <td><input type="number" class="top-row col-end" id="05"></td>
+            <td><input type="number" class="top-row col-start"id="06"></td>
+            <td><input type="number" class="top-row"id="08"></td>
+            <td><input type="number" class="top-row col-end"id="09"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start"id="10"></td>
+            <td><input type="number"id="11"></td>
+            <td><input type="number" class="col-end"id="12"></td>
+            <td><input type="number"class="col-start"id="13"></td>
+            <td><input type="number"id="14"></td>
+            <td><input type="number" class="col-end"id="15"></td>
+            <td><input type="number"class="col-start"id="16"></td>
+            <td><input type="number"id="17"></td>
+            <td><input type="number" class="col-end"id="18"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start bottom-row" id="20"></td>
+            <td><input type="number" class="bottom-row"id="21"></td>
+            <td><input type="number"class="bottom-row col-end"id="22"></td>
+            <td><input type="number" class="col-start bottom-row"id="23"></td>
+            <td><input type="number" class="bottom-row"id="24"></td>
+            <td><input type="number"class="bottom-row col-end"id="25"></td>
+            <td><input type="number" class="col-start bottom-row"id="26"></td>
+            <td><input type="number" class="bottom-row"id="27"></td>
+            <td><input type="number"class="bottom-row col-end"id="28"></td>
+           </tr>
+           <tr><td><input type="number" class="top-row col-start" ></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            <td><input type="number" class="top-row col-start"></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            <td><input type="number" class="top-row col-start"></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            <td><input type="number"class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            <td><input type="number"class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+            <td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+            <td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+           </tr>
+           <tr><td><input type="number" class="top-row col-start" ></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            <td><input type="number" class="top-row col-start"></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            <td><input type="number" class="top-row col-start"></td>
+            <td><input type="number" class="top-row"></td>
+            <td><input type="number" class="top-row col-end"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            <td><input type="number"class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            <td><input type="number"class="col-start"></td>
+            <td><input type="number"></td>
+            <td><input type="number" class="col-end"></td>
+            </tr>
+        <tr><td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+            <td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+            <td><input type="number" class="col-start bottom-row"></td>
+            <td><input type="number" class="bottom-row"></td>
+            <td><input type="number"class="bottom-row col-end"></td>
+           </tr>
+        </tbody>
+        </table>
       
-      
-      <colgroup><col><col><col>
-      <colgroup><col><col><col>
-      <colgroup><col><col><col>
-      <tbody>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>     
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-      <tbody>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>     
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-      <tbody>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>     
-       <tr> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td> <td contenteditable="true"></td>
-    </table>
-    <div>
-      <button id="solve-button">Solve!</button>
     </div>
-    <div>
-      <button id="clear-button">Clear board</button>
-    </div>
-  </div>
+    <button type="submit" id="submit">Solve</button>
+<script src="sudokuscript.js"></script>
 </body>
-
-<script type="text/javascript">
-  document.getElementById("sudoku-board").addEventListener("keyup", function(event) {
-    if(event.target && event.target.nodeName == "TD") {
-      var validNum = /[1-9]/;
-      var tdEl = event.target;
-      if (tdEl.innerText.length > 0 && validNum.test(tdEl.innerText[0])) {
-        tdEl.innerText = tdEl.innerText[0];
-      } else {
-        tdEl.innerText = "";
-      }
-    }
-  });
-
-  document.getElementById("solve-button").addEventListener("click", function(event) {
-    var boardString = boardToString();
-    var solution = SudokuSolver.solve(boardString);
-    if (solution) {
-      stringToBoard(solution);
-    } else {
-      alert("Invalid board!");
-    }
-  })
-
-  document.getElementById("clear-button").addEventListener("click", clearBoard);
-
-  function clearBoard() {
-    var tds = document.getElementsByTagName("td");
-    for (var i = 0; i < tds.length; i++) {
-      tds[i].innerText = "";
-    }
-  }
-
-  function boardToString() {
-    var string = "";
-    var validNum = /[1-9]/;
-    var tds = document.getElementsByTagName("td");
-    for (var i = 0; i < tds.length; i++) {
-      if (validNum.test(tds[i].innerText[0])) {
-        string += tds[i].innerText;
-      } else {
-        string += "-";
-      }
-    }
-    return string;
-  }
-
-  function stringToBoard(string) {
-    var currentCell;
-    var validNum = /[1-9]/;
-    var cells = string.split("");
-    var tds = document.getElementsByTagName("td");
-    for (var i = 0; i < tds.length; i++) {
-      currentCell = cells.shift();
-      if (validNum.test(currentCell)) {
-        tds[i].innerText = currentCell;
-      }
-    }
-  }
-</script>
 </html>
